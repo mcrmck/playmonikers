@@ -1,5 +1,5 @@
 {
-  "name": "monikers-js",
+  "name": "monikers",
   "version": "1.0.0",
   "engines": {
     "node": "^10.14.0"
@@ -7,11 +7,12 @@
   "description": "A browser based adaptation of the card game Monikers. Uses socket.io and vue.js",
   "repository": {
     "type": "github",
-    "url": "https://github.com/james-whitehead/monikers-js.git"
+    "url": "git+https://github.com/james-whitehead/monikers-js.git"
   },
   "main": "src/server/main.js",
   "scripts": {
     "test": "mocha --exit",
+    "deploy": "gh-pages -d build",
     "build": "webpack --env.production && npm run sass",
     "watch": "webpack --env.development -w --debug --output-path-info --display-modules",
     "sass": "node-sass src/public/style/style.scss src/public/style/style.css --output-style compressed",
@@ -59,5 +60,12 @@
     "eslint-plugin-vue": "^5.2.2",
     "mocha": "^5.2.0",
     "vue": "^2.6.10"
+  },
+  "bugs": {
+    "url": "https://github.com/james-whitehead/monikers-js/issues"
+  },
+  "homepage": "https://github.com/james-whitehead/monikers-js#readme",
+  "directories": {
+    "test": "test"
   }
 }
