@@ -1,0 +1,566 @@
+:root {
+	--shadow-config: 0px 2px 4px 0px;
+	--header-font: 'Fredoka One', cursive;
+	--body-font: 'Arimo', sans-serif;
+	--number-font: 'Raleway', sans-serif;
+	--button-font: 'Arimo', sans-serif;
+	--card-font: 'Rubik', sans-serif;
+	--title-font: 'Maven Pro', sans-serif;
+}
+
+html, body {
+	height: 100%;
+	font-family: var(--body-font);
+	margin: 0 0;
+	font-size: 16px;
+
+	font-weight: normal;
+	line-height: 1.35;
+}
+#wrapper {
+	height: 100%;
+	&.light-theme {
+		background-color: white;
+		color: var(--grey5);
+	}
+}
+
+h1, h2, h3 {
+	font-family: var(--header-font);
+	color: var(--grey7);
+}
+h1 {
+	font-size: 36px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	@media screen and (max-width: 480px) {
+		font-size: 30px;
+	}
+}
+h2 {
+	font-size: 22px;
+	margin: 5px 5px 10px 5px;
+}
+h3 {
+	font-size: 18px;
+	margin: 5px 5px 10px 5px;
+}
+
+div.stripe {
+	margin: 0 0;
+	padding: 10px 10px;
+}
+div.stripe-content {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 650px;
+}
+div.chunk-narrow {
+	margin-bottom: 15px;
+}
+.align-center {
+	text-align: center;
+}
+.align-left {
+	text-align: left;
+}
+.align-justify {
+	text-align: justify;
+}
+
+p, ul {
+	margin: 5px 5px 5px 5px;
+}
+div.normal-text :not(:last-child) { /* normal-text identifies a section of both header and text */
+	margin-bottom: 10px; /* paragraph break */
+}
+p em, p strong, p span, p a {
+	white-space: nowrap;
+}
+a {
+	color: var(--blue2);
+}
+ul {
+	list-style: none;
+	padding: 0;
+}
+.tinytext {
+	font-size: 13px;
+	font-style: italic;
+}
+.tip {
+	color: var(--grey4);
+}
+.disconnected {
+	color: red;
+}
+
+.error {
+	color: red;
+	font-weight: bold;
+}
+div.warning {
+	background-color: var(--gold1);
+	border: solid 1px var(--gold3);
+	color: var(--gold5);
+	border-radius: 2px;
+	margin: 10px 80px;
+	padding: 0 10px;
+	font-size: 13px;
+	display: inline-block; /* Div box width to equal inner content width */
+}
+
+hr {
+	height: 1px;
+	border: 0;
+	background-color: var(--grey1);
+}
+
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	flex-wrap: wrap;
+}
+.fill-space {
+	flex: 1;
+}
+
+.view {
+    height: 100%;
+    display: flex;
+	flex-direction: column;
+
+	// Instead of using 'justify-content: center', use auto margin.
+	// The former leads to weird overflow behavior, until browsers support 'safe center'
+	.view-container {
+		margin: auto;
+	}
+}
+#home {
+	#home-menu {
+		min-height: 240px;
+		margin: 10px 0; /* some extra breathing space for the menu */
+	}
+	#about-content {
+		font-size: 14px; 
+		line-height: 1.2;
+	}
+}
+
+/* ============================================================================
+	Index page
+============================================================================ */
+
+#title-banner {
+	font-size: 7em;
+	color: var(--blue0);
+}
+
+/* ============================================================================
+	Rules page
+============================================================================ */
+
+div#rules-content {
+	max-width: 875px;
+}
+div#rules-cards {
+	margin-bottom: 42px;
+}
+div#rules-card {
+	cursor: default;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+/* ============================================================================
+	Setup room
+============================================================================ */
+
+div#room-setup {
+	h3 {
+		font-family: var(--body-font);
+	}
+	div.game-code h1 {
+		font-family: var(--number-font);
+		margin-top: 0;
+	}
+	div.chunk.users {
+		max-width: 250px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	ul.users {
+		height: calc((21px) * 10); /* <li> height * number of rows */
+		margin-top: 0;
+	}
+	li {
+		font-weight: bold;
+		font-family: var(--body-font);
+		line-height: 1.2;
+	}
+	div#users {
+		color: var(--grey7);
+	}
+	div#red-team {
+		padding: 0 80px 0 80px;
+		color: var(--grey7);
+	}
+	div#blue-team {
+		padding: 0 80px 0 80px;
+		color: var(--grey7);
+	}
+}
+
+/* ============================================================================
+	Cards
+============================================================================ */
+
+div.card {
+	position: relative;
+	font-family: var(--card-font);
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	transition: all 0.1s cubic-bezier(.25,.8,.25,1);
+	border-radius: 30px;
+	height: 450px;
+	width: 300px;
+	padding: 30px;
+	&.card-small {
+		box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+		cursor: pointer;
+		width: 200px;
+		height: 300px;
+
+		.card-title {
+			font-size: 18px;
+		}
+		.card-desc {
+			font-size: 13px;
+			top: 22%;
+			width: 200px;
+		}
+		.card-sep {
+			font-size: 13px;
+		}
+		.card-type {
+			font-size: 13px;
+			letter-spacing: 2px;
+		}
+		.card-points {
+			font-size: 11px;
+			padding: 4px 10px 10px 10px;
+		}
+	}
+}
+
+div.card-small:hover {
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	-webkit-transform: scale(1.07);
+	-ms-transform: scale(1.07);
+	transform: scale(1.07);
+}
+
+div.card.highlight {
+	box-shadow: 0 14px 28px rgba(0,204,255,0.20), 0 10px 10px rgba(0,204,255,0.17);
+	-webkit-transform: scale(1.07);
+	-ms-transform: scale(1.07);
+	transform: scale(1.07);
+}
+
+div.card-title {
+	font-size: 28px;
+	font-family: var(--title-font);
+	font-weight: bold;
+	color: var(--grey7);
+	padding-bottom: 15px;
+}
+div.card-desc {
+	position: absolute;
+	color: var(--grey6);
+	font-size: 17px;
+	text-align: left;
+	top: 25%;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	width: 300px;
+}
+div.card-sep {
+	position: absolute;
+	color: var(--grey2);
+	letter-spacing: 4px;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	bottom: 25%;
+}
+div.card-type {
+	position: absolute;
+	font-size: 17px;
+	font-weight: bold;
+	letter-spacing: 4px;
+	white-space: nowrap;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	bottom: 19%;
+}
+div.card-points {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	padding: 10px 20px 20px 20px;
+	font-size: 13px;
+	border-top-left-radius: 50%;
+	border-top-right-radius: 50%;
+	line-height: 18px;
+	font-weight: bold;
+}
+p.point-score {
+	font-size: 20px;
+}
+div.points-one-t {
+	color: var(--green1);
+}
+div.points-one-p {
+	background-color: var(--green1);
+	color: white;
+}
+div.points-two-t {
+	color: var(--blue0);
+}
+div.points-two-p {
+	background-color: var(--blue0);
+	color: white;
+}
+div.points-three-t {
+	color: var(--purp1);
+}
+div.points-three-p {
+	background-color: var(--purp1);
+	color: white;
+}
+div.points-four-t {
+	color: var(--red1);
+}
+div.points-four-p {
+	background-color: var(--red1);
+	color: white;
+}
+
+/* ============================================================================
+	Canvas
+============================================================================ */
+
+#drawing-pad {
+	position: relative;
+	border: solid 5px var(--artist4);
+	box-shadow: 0px 3px 6px 0px var(--shade);
+	width: 100%;
+}
+canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+canvas#old-paint {
+	background-color: white;
+	z-index: 1;
+}
+canvas#new-paint {
+	z-index: 2; /* ensures pointer events hit the top layer, not the bottom layer */
+}
+
+/* ============================================================================
+	Game
+============================================================================ */
+
+#waiting-menu {
+	margin: auto 0;
+}
+
+#game-screen {
+	margin: auto 0;
+
+	#team-scores {
+		margin-top: 80px;
+	}
+
+	#score-value {
+		font-family: var(--number-font);
+	}
+
+	#red-team {
+		font-family: var(--card-font);
+		p {
+			color: var(--red-team);
+			font-weight: bold;
+			font-size: 22px;
+		}
+		li {
+			color: var(--grey6);
+			font-size: 18px;
+			margin-right: 23px;
+		}
+		.crown {
+			float: left;
+			margin-right: 7px;
+		}
+	}
+
+	#blue-team {
+		font-family: var(--card-font);
+		p {
+			color: var(--blue-team);
+			font-weight: bold;
+			font-size: 22px;
+		}
+		li {
+			color: var(--grey6);
+			font-size: 18px;
+			margin-left: 23px;
+		}
+		.crown {
+			float: right;
+			margin-left: 6px;
+		}
+	}
+
+	.card {
+		margin-top: -20px;
+	}
+
+	.blank-card {
+		background-color: var(--blue0);
+		outline: 5px solid white;
+		-moz-outline-radius: 30px;
+		outline-offset: -32px;
+		.card-title {
+			padding-top: 100px;
+			color: white;
+			font-size: 40px;
+			letter-spacing: 5px;
+		}
+		.card-desc, .card-sep, .card-type, .card-points {
+			visibility: hidden;
+		}
+	}
+
+	#countdown-timer {
+		font-size: 38px;
+		color: var(--grey7);
+		font-family: var(--number-font);
+		font-weight: bold;
+		margin-bottom: 35px;
+	}
+
+	#round-title {
+		color: var(--blue0);
+		font-size: 56px;
+	}
+
+	#round-desc {
+		font-family: var(--title-font);
+		font-size: 28px;
+		font-weight: normal;
+	}
+
+	#cards-remaining-title {
+		font-family: var(--card-font);
+		font-size: 22px;
+		font-weight: bold;
+	}
+
+	#cards-remaining-value {
+		font-family: var(--number-font);
+		font-size: 20px;
+		font-weight: bold;
+	}
+
+	#next-btns-invis button {
+		border-color: white;
+		background-color: white;
+		color: white;
+		cursor: default;
+	}
+}
+
+.canvas-aligned {
+	// max-width set in drawing-pad.js
+	width: 100%;
+}
+
+#ten-cards {
+	max-width: 1600px;
+	margin-top: -20px;
+	margin-bottom: -15px;
+	.card {
+		margin: 20px 12px;
+	}
+}
+
+#game-info {
+	text-align: left;
+	font-family: var(--body-font);
+
+	p {
+		font-size: 24px;
+		text-align: center;
+		font-weight: bold;
+	}
+	
+	h1.prompt {
+		color: var(--pink0);
+		font-size: 26px;
+		margin: 0 0 0 0;
+	}
+
+	@media screen and (max-width: 480px) {
+		h1.prompt {
+			font-size: 20px;
+		}
+		h3 {
+			font-size: 16px;
+		}
+	}
+	
+	.current-turn {
+		margin-left: 10px;
+		margin: 0 0 0 10px;
+	}
+}
+
+#drawing-actions {
+	direction: rtl; /* handle vertical button order for super-narrow viewports */
+
+	#drawing-actions-left {
+		& > * {
+			float: left;
+		}
+	}
+	#drawing-actions-right {
+		& > * {
+			float: right;
+		}
+	}
+}
+
+#conn-overlay {
+	background-color: rgba(240, 240, 240, 0.9);
+	height: 100%;
+	width: 100%;
+
+	/* see position and z-idxes for the drawing pad layers */
+	position: absolute;
+	z-index: 3;
+}
+
+
+@import 'colors';
+@import 'input';
+@import 'dropup';
+@import 'dialog';

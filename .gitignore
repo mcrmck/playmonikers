@@ -1,0 +1,16 @@
+node_modules/
+package-lock.json
+.DS_Store
+.eslintrc
+.vscode/
+.env
+*.log
+*.bundle.json
+src/public/js/index.js
+*.min.js
+*.gz
+*.js.map
+*.css.map
+style.css
+src/public/js/game-view-old.vue
+node_modules
