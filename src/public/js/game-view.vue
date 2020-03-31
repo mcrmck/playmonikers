@@ -115,7 +115,7 @@ const GAME_PHASE = require('../../common/game-phase');
 const CONNECTION_STATE = require('./connection-state');
 import Card from './card';
 import ConnectionOverlay from './connection-overlay';
-const timerLimit = 5;
+const timerLimit = 60;
 
 export default {
 	name: 'GameView',
