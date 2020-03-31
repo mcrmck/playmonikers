@@ -90,10 +90,11 @@ class GameRoom {
 			}
 		}
 		this.cardIdx++;
-		for (; this.cardIdx < this.selectedCards.length; this.cardIdx++) {
-			if (this.cardIdx === this.selectedCards.length - 1) {
-				this.cardIdx = 0;
-			}
+		//
+//		for (; this.cardIdx < this.selectedCards.length; this.cardIdx++) {
+	//		if (this.cardIdx === this.selectedCards.length - 1) {
+	//			this.cardIdx = 0;
+		//	}
 			if(!this.selectedCards[this.cardIdx].collected) {
 				console.log(`Card index after rotation: ${this.cardIdx}`);
 				return this.cardIdx;
