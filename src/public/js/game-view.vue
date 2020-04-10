@@ -57,7 +57,7 @@
 					<h2 id="round-desc"  v-if="this.gameState.round === 2">Only one word!</h2>
 					<h2 id="round-desc"  v-if="this.gameState.round === 3">No words allowed!</h2>
 				</div>
-				<div id="countdown-timer" v-if="this.gameState.turnInProgress" :style="{visibility: this.countdown >= 0 ? 'visible' : 'hidden'}">{{this.countdown}}</div>
+				<div id="countdown-timer" v-if="this.gameState.turnInProgress" :style="{visibility: this.countdown >= 0 ? 'visible' : 'hidden'}">{{countdown}}</div>
 				<button v-if="thisUser.captain && !this.gameState.turnInProgress" type="submit" id="ready-btn" class="btn primary" @click="ready()">Ready?</button>
 				<button v-if="!thisUser.captain && !this.gameState.turnInProgress" type="submit" id="ready-invis" class="btn primary">Ready?</button>
 				<card
@@ -185,15 +185,15 @@ export default {
 			Store.submitTurnStart();
 		},
 		countdownTimer() {
-			this.countdown = 60;
-			var downloadTimer = setInterval(function(){
+		this.countdown = 60;
+			var downloadTimer = setInterval(() => {
 			if(this.countdown <= 0){
 				clearInterval(downloadTimer);
 				if (this.thisUser.captain) {
 						Store.submitTurnEnd();
 					}
 			}
-			this.countdown -= 1;
+			this.countdown -= 1
 			console.log(this.countdown)
 			}, 1000);
 		},
@@ -208,6 +208,7 @@ export default {
 	},
 	mounted() {
 		Store.getSocket().on(MESSAGE.TURN_START, () => {
+			console.log("hello")
 			this.countdownTimer();
 		});
 
