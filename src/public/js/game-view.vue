@@ -57,7 +57,7 @@
 					<h2 id="round-desc"  v-if="this.gameState.round === 2">Only one word!</h2>
 					<h2 id="round-desc"  v-if="this.gameState.round === 3">No words allowed!</h2>
 				</div>
-				<div id="countdown-timer" v-if="this.gameState.turnInProgress" :style="{visibility: this.countdown >= 0 ? 'visible' : 'hidden'}">{{countdown}}</div>
+				<div id="countdown-timer" v-if="this.gameState.turnInProgress" :style="{visibility: this.countdown >= 0 ? 'visible' : 'hidden'}">{{this.countdown}}</div>
 				<button v-if="thisUser.captain && !this.gameState.turnInProgress" type="submit" id="ready-btn" class="btn primary" @click="ready()">Ready?</button>
 				<button v-if="!thisUser.captain && !this.gameState.turnInProgress" type="submit" id="ready-invis" class="btn primary">Ready?</button>
 				<card
@@ -80,7 +80,7 @@
 					points="_"
 				/>
 				<div class="stripe stripe-content">
-					<button v-if="thisUser.captain && this.gameState.turnInProgress" type="submit" id="next-card-btn" class="btn primary" @click="nextCard(true)">Correct!</button>
+					<button v-if="thisUser.captain && this.gameState.turnInProgress" type="submit" id="next-card-btn" class="btn primary" @click="nextCard(true);">Correct!</button>
 					<button v-if="thisUser.captain && this.gameState.turnInProgress" type="submit" id="next-card-btn" class="btn secondary" @click="nextCard(false)">Skip Card</button>
 				</div>
 				<div class="stripe stripe-content" id="next-btns-invis">
@@ -185,20 +185,25 @@ export default {
 			Store.submitTurnStart();
 		},
 		countdownTimer() {
-			if (this.countdown >= 0) {
-				setTimeout(() => {
-					this.countdown -= 1;
-					this.countdownTimer();
-				}, 1000);
-			} else {
+			this.countdown = 60;
+			var downloadTimer = setInterval(function(){
+			if(this.countdown <= 0){
+				clearInterval(downloadTimer);
 				if (this.thisUser.captain) {
-					Store.submitTurnEnd();
-				}
-				this.countdown = timerLimit;
+						Store.submitTurnEnd();
+					}
 			}
+			this.countdown -= 1;
+			console.log(this.countdown)
+			}, 1000);
 		},
 		nextCard(correct) {
+			if (this.gameState.selectedCards.filter(c => c.collected === false).length === 1) {
+				Store.submitNextCard(correct);
+				Store.submitSkipRound();
+			} else {
 			Store.submitNextCard(correct);
+		}
 		}
 	},
 	mounted() {

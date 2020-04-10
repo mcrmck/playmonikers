@@ -205,6 +205,7 @@ function submitTurnStart() {
 	socket.emit(MESSAGE.TURN_START, {});
 }
 function submitNextCard(correct) {
+	
 	socket.emit(MESSAGE.NEXT_CARD, {
 		correct: correct
 	});

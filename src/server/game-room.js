@@ -1,12 +1,15 @@
-const Stroke = require('../common/stroke');
+
 const GAME_PHASE = require('../common/game-phase');
 const Util = require('../common/util');
 const _ = require('lodash');
 const GameError = require('./game-error');
 const cardsJson = require('../public/js/cards.json');
 
-const MAX_USERS = 10;
 
+
+
+const MAX_USERS = 10;
+var i = 0
 class GameRoom {
 	constructor(roomCode, host) {
 		this.roomCode = roomCode;
@@ -20,7 +23,6 @@ class GameRoom {
 		this.turn = -1;
 		this.hint = undefined;
 		this.faker = undefined;
-
 		this.cards = [];
 		this.selectedCards = [];
 		this.cardIdx = 0;
@@ -56,14 +58,19 @@ class GameRoom {
 		return this.users.find((p) => (p.name === name));
 	}
 	startNewRound() {
-		if (this.round === 0) {
+	//	if (this.round === 0) {
 			this.cards = _.sampleSize(cardsJson, this.users.length * 10);
 			this.cards.forEach(c => c.collected = false);
+			this.selectedCards.forEach(c => c.collected = false);
 			this.users = Util.sortByTeam(this.users);
-		}
+	//	}
+
 		this.round++;
 		this.phase = GAME_PHASE.PLAY;
 		this.turn = 1;
+		this.order = Array.from(Array(this.users.length * 5).keys());
+		this.order = this.order.sort(() => Math.random() - 0.5);
+		this.cardIdx = this.order[i];
 		this.faker = Util.randomItemFrom(this.users);
 		this.strokes = [];
 		this.users[0].captain = true;
@@ -73,33 +80,34 @@ class GameRoom {
 		this.turnInProgress = true;
 	}
 	nextCard(correct) {
+		console.log(`order: ${this.order}`);
+		console.log(`i: ${i}`);
+		console.log(`Cardidx: ${this.cardIdx}`);
 		console.log(`Card clicked: ${this.selectedCards[this.cardIdx].name}`);
 		console.log(`${this.selectedCards[this.cardIdx].name} collected = ${correct}`);
-		console.log(`Card index before rotation: ${this.cardIdx}`);
+		console.log(`${JSON.stringify(this.selectedCards)}`);
+
 		let playingTeam = this.users.find(u => u.captain === true).team;
 		if (correct) {
 			this.selectedCards[this.cardIdx].collected = true;
-			if (this.selectedCards.every(c => c.collected === true)) {
-				console.log('Round over!');
-				return this.cardIdx;
-			}
+			this.order.splice(i, 1)
 			if (playingTeam === 'red') {
 				this.redCards.push(this.selectedCards[this.cardIdx]);
 			} else if (playingTeam === 'blue') {
 				this.blueCards.push(this.selectedCards[this.cardIdx]);
 			}
-		}
-		this.cardIdx++;
-		//
-//		for (; this.cardIdx < this.selectedCards.length; this.cardIdx++) {
-	//		if (this.cardIdx === this.selectedCards.length - 1) {
-	//			this.cardIdx = 0;
-		//	}
-			if(!this.selectedCards[this.cardIdx].collected) {
-				console.log(`Card index after rotation: ${this.cardIdx}`);
+			if (this.selectedCards.every(c => c.collected === true)) {
+				console.log('Round over!');
+				//this.startNewRound();
 				return this.cardIdx;
 			}
+		} else {
+			i++;
 		}
+			if (i > this.order.length - 1) {
+				i = 0;
+			}
+		this.cardIdx = this.order[i];
 	}
 	turnEnd() {
 		let captIdx = this.users.findIndex(u => u.captain === true);

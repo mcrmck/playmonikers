@@ -9,10 +9,18 @@ function randomItemFrom(arr) {
 
 // thanks stackOverflow
 function shuffle(array) {
-	for (let i = array.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
-		[array[i], array[j]] = [array[j], array[i]];
-	}
+  let i = array.length;
+  while (i--) {
+    const ri = Math.floor(Math.random() * (i + 1));
+    [array[i], array[ri]] = [array[ri], array[i]];
+  }
+  return array;
+}
+
+function randomArray(length) {
+    var arr = Array.from(Array(length).keys())
+		arr = arr.sort(() => Math.random() - 0.5);
+		return arr
 }
 
 // Sorts users in alternating team order: https://stackoverflow.com/a/55077593

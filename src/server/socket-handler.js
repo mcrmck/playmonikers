@@ -110,6 +110,7 @@ const MessageHandlers = {
 		GamePrecond.sockHasUser(sock);
 		GamePrecond.userIsInARoom(sock.user);
 		let rm = sock.user.gameRoom;
+		rm.turnEnd();
 		rm.startNewRound();
 		broadcastRoomState(io, rm, MESSAGE.START_GAME);
 	},
