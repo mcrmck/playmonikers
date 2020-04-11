@@ -80,12 +80,12 @@ class GameRoom {
 		this.turnInProgress = true;
 	}
 	nextCard(correct) {
-		console.log(`order: ${this.order}`);
-		console.log(`i: ${i}`);
-		console.log(`Cardidx: ${this.cardIdx}`);
+	//	console.log(`order: ${this.order}`);
+		//console.log(`i: ${i}`);
+		//console.log(`Cardidx: ${this.cardIdx}`);
 		console.log(`Card clicked: ${this.selectedCards[this.cardIdx].name}`);
 		console.log(`${this.selectedCards[this.cardIdx].name} collected = ${correct}`);
-		console.log(`${JSON.stringify(this.selectedCards)}`);
+	//	console.log(`${JSON.stringify(this.selectedCards)}`);
 
 		let playingTeam = this.users.find(u => u.captain === true).team;
 		if (correct) {
@@ -130,6 +130,8 @@ class GameRoom {
 	whoseTurn() {
 		if(this.phase === GAME_PHASE.PLAY) {
 			let idx = ((this.turn - 1) % this.users.length);
+			console.log(this.users[idx].name)
+			console.log(this.turn)
 			return this.users[idx];
 		}
 		return undefined;
@@ -144,6 +146,7 @@ class GameRoom {
 	nextTurn() {
 		if(this.gameInProgress()) {
 			this.turn++;
+			console.log("new turn")
 			if(this.turn - 1 >= this.users.length * 2) {
 				this.phase = GAME_PHASE.VOTE;
 			}

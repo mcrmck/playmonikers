@@ -37,6 +37,19 @@
 				</div>
 			</div>
 		</div>
+		<div id="end-game" v-if="this.gameState.round > 3">
+			<div class="stripe flex-center">
+				<div class="stripe-content align-center">
+					<p>Thank you for playing!</p>
+				</div>
+			</div>
+			<div class="stripe stripe-content">
+				<button v-if="this.gameState.round > 3" type="submit" id="return-home-btn" class="btn primary" @click="nextCard(true);">Return Home</button>
+			</div>
+			<div class="stripe stripe-content" id="next-btns-invis">
+				<button v-if="this.gameState.round > 3" type="submit" id="return-home-btn" class="btn primary">Correct!</button>
+			</div>
+		</div>
 		<div class="stripe flex-center" id="game-screen" v-if="allUsersSubmitted">
 			<div class="stripe-content" id="red-team">
 				<p>RED TEAM</p>
@@ -136,7 +149,8 @@ export default {
 	data() {
 		return {
 			selected: [],
-			countdown: timerLimit
+			countdown: timerLimit,
+			isCountdownActive: false
 		}
 	},
 	computed: {
@@ -185,17 +199,30 @@ export default {
 			Store.submitTurnStart();
 		},
 		countdownTimer() {
-		this.countdown = 60;
+			// exit method if it is active
+			 if(this.isCountdownActive == true && this.gameState.round === round) return;
+			 // first time set true
+			 this.isCountdownActive = true
+
+			 this.countdown = 10;
+			 var round = this.gameState.round
 			var downloadTimer = setInterval(() => {
+			if(this.gameState.round > round) {
+				clearInterval(downloadTimer);
+			}
 			if(this.countdown <= 0){
 				clearInterval(downloadTimer);
 				if (this.thisUser.captain) {
 						Store.submitTurnEnd();
 					}
+					// On exit interval, restart to false
+          this.isCountdownActive = false
 			}
 			this.countdown -= 1
-			console.log(this.countdown)
 			}, 1000);
+		},
+		returnHome(correct) {
+			Store.submitReturnToSetup();
 		},
 		nextCard(correct) {
 			if (this.gameState.selectedCards.filter(c => c.collected === false).length === 1) {
