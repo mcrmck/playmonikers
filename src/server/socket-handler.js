@@ -115,13 +115,14 @@ const MessageHandlers = {
 		broadcastRoomState(io, rm, MESSAGE.START_GAME);
 	},
 
-	[MESSAGE.SUBMIT_STROKE](io, sock, data) {
+	[MESSAGE.SUBMIT_STROKE](io, sock) {
+		// ,data
 		GamePrecond.sockHasUser(sock);
 		GamePrecond.userIsInARoom(sock.user);
 		GamePrecond.gameInProgress(sock.user.gameRoom);
 		GamePrecond.isUsersTurn(sock.user);
 		let rm = sock.user.gameRoom;
-		rm.addStroke(sock.user.name, data.points);
+	//	rm.addStroke(sock.user.name, data.points);
 		rm.nextTurn();
 		broadcastRoomState(io, rm, MESSAGE.NEW_TURN);
 	},

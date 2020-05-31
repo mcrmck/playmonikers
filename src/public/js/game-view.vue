@@ -9,15 +9,15 @@
 			</div>
 			<div class="stripe flex-center" id="ten-cards">
 				<card
-					v-for="card in playerCards"
-					class="card-small"
-					:class="{highlight: selected.some(c => c.name === card.name)}"
-					@select="select(card)"
-					v-bind:key="card.name"
-					v-bind:name="card.name"
-					v-bind:description="card.description"
-					v-bind:category="card.category"
-					v-bind:points="card.points"
+				v-for="card in playerCards"
+				class="card-small"
+				:class="{highlight: selected.some(c => c.name === card.name)}"
+				@select="select(card)"
+				v-bind:key="card.name"
+				v-bind:name="card.name"
+				v-bind:description="card.description"
+				v-bind:category="card.category"
+				v-bind:points="card.points"
 				/>
 			</div>
 			<div class="stripe flex-center">
@@ -70,27 +70,27 @@
 					<h2 id="round-desc"  v-if="this.gameState.round === 2">Only one word!</h2>
 					<h2 id="round-desc"  v-if="this.gameState.round === 3">No words allowed!</h2>
 				</div>
-				<div id="countdown-timer" v-if="this.gameState.turnInProgress" :style="{visibility: this.countdown >= 0 ? 'visible' : 'hidden'}">{{countdown}}</div>
+				<div id="countdown-timer" v-if="this.gameState.turnInProgress" :style="{visibility: this.countdown >= 0 ? 'visible' : 'hidden'}">{{this.countdown}}</div>
 				<button v-if="thisUser.captain && !this.gameState.turnInProgress" type="submit" id="ready-btn" class="btn primary" @click="ready()">Ready?</button>
 				<button v-if="!thisUser.captain && !this.gameState.turnInProgress" type="submit" id="ready-invis" class="btn primary">Ready?</button>
 				<card
-					v-if="thisUser.captain && this.gameState.turnInProgress"
-					class="stripe-content card"
-					v-bind:key="this.gameState.selectedCards[this.gameState.cardIdx].name"
-					v-bind:name="this.gameState.selectedCards[this.gameState.cardIdx].name"
-					v-bind:description="this.gameState.selectedCards[this.gameState.cardIdx].description"
-					v-bind:category="this.gameState.selectedCards[this.gameState.cardIdx].category"
-					v-bind:points="this.gameState.selectedCards[this.gameState.cardIdx].points"
+				v-if="thisUser.captain && this.gameState.turnInProgress"
+				class="stripe-content card"
+				v-bind:key="this.gameState.selectedCards[this.gameState.cardIdx].name"
+				v-bind:name="this.gameState.selectedCards[this.gameState.cardIdx].name"
+				v-bind:description="this.gameState.selectedCards[this.gameState.cardIdx].description"
+				v-bind:category="this.gameState.selectedCards[this.gameState.cardIdx].category"
+				v-bind:points="this.gameState.selectedCards[this.gameState.cardIdx].points"
 				/>
 				<card
-					v-if="!thisUser.captain || (thisUser.captain && !this.gameState.turnInProgress)"
-					class="stripe-content card"
-					:class="{'blank-card': !thisUser.captain || (thisUser.captain && !this.gameState.turnInProgress)}"
-					key="_"
-					name="MONIKERS"
-					description="_"
-					category="_"
-					points="_"
+				v-if="!thisUser.captain || (thisUser.captain && !this.gameState.turnInProgress)"
+				class="stripe-content card"
+				:class="{'blank-card': !thisUser.captain || (thisUser.captain && !this.gameState.turnInProgress)}"
+				key="_"
+				name="MONIKERS"
+				description="_"
+				category="_"
+				points="_"
 				/>
 				<div class="stripe stripe-content">
 					<button v-if="thisUser.captain && this.gameState.turnInProgress" type="submit" id="next-card-btn" class="btn primary" @click="nextCard(true);">Correct!</button>
@@ -126,6 +126,7 @@ const Store = require('./state');
 const VIEW = require('./view');
 const GAME_PHASE = require('../../common/game-phase');
 const CONNECTION_STATE = require('./connection-state');
+const Util = require('../../common/util');
 import Card from './card';
 import ConnectionOverlay from './connection-overlay';
 const timerLimit = 60;
@@ -168,8 +169,8 @@ export default {
 		},
 		notChosenUsers() {
 			return this.gameState.users
-				.filter(user => user.cardsChosen === false)
-				.map(user => user.name);
+			.filter(user => user.cardsChosen === false)
+			.map(user => user.name);
 		},
 		allUsersSubmitted() {
 			return this.gameState.users.every(user => user.cardsChosen === true);
@@ -199,26 +200,28 @@ export default {
 			Store.submitTurnStart();
 		},
 		countdownTimer() {
-			// exit method if it is active
-			 if(this.isCountdownActive == true && this.gameState.round === round) return;
-			 // first time set true
-			 this.isCountdownActive = true
+				// exit method if it is active
+				 if(this.isCountdownActive == true) return;
+				 // first time set true
+				 this.isCountdownActive = true
+				 this.countdown = 10;
+				 var round = this.gameState.round
+				var downloadTimer = setInterval(() => {
+					console.log(this.countdown)
+					console.log(this.thisUser.captain)
+					console.log(this.gameState.turn)
 
-			 this.countdown = 10;
-			 var round = this.gameState.round
-			var downloadTimer = setInterval(() => {
-			if(this.gameState.round > round) {
-				clearInterval(downloadTimer);
-			}
-			if(this.countdown <= 0){
-				clearInterval(downloadTimer);
-				if (this.thisUser.captain) {
-						Store.submitTurnEnd();
-					}
-					// On exit interval, restart to false
-          this.isCountdownActive = false
-			}
-			this.countdown -= 1
+				if(this.countdown <= 0){
+					clearInterval(downloadTimer);
+					if (this.thisUser.captain) {
+							console.log("submit turn end")
+							this.countdown = 10
+							Store.submitTurnEnd();
+						}
+						// On exit interval, restart to false
+			      this.isCountdownActive = false
+				}
+				this.countdown -= 1
 			}, 1000);
 		},
 		returnHome(correct) {
@@ -229,13 +232,13 @@ export default {
 				Store.submitNextCard(correct);
 				Store.submitSkipRound();
 			} else {
-			Store.submitNextCard(correct);
-		}
+				Store.submitNextCard(correct);
+			}
 		}
 	},
 	mounted() {
 		Store.getSocket().on(MESSAGE.TURN_START, () => {
-			console.log("hello")
+			console.log("mounted")
 			this.countdownTimer();
 		});
 

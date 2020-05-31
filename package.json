@@ -31,6 +31,7 @@
     "compression": "^1.7.4",
     "compression-webpack-plugin": "^2.0.0",
     "core-js": "^3.6.4",
+    "correcting-interval": "^2.0.0",
     "css-loader": "^2.1.1",
     "csv": "^4.0.0",
     "dotenv": "^6.2.0",

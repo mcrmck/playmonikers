@@ -186,9 +186,10 @@ function submitStartGame(reds, blues, users) {
 	}
 }
 function submitStroke(points) {
-	socket.emit(MESSAGE.SUBMIT_STROKE, {
-		points: points,
-	});
+	// socket.emit(MESSAGE.SUBMIT_STROKE, {
+	// 	points: points,
+	// });
+	socket.emit(MESSAGE.SUBMIT_STROKE);
 }
 function submitSkipRound() {
 	socket.emit(MESSAGE.SKIP_ROUND);
@@ -205,7 +206,7 @@ function submitTurnStart() {
 	socket.emit(MESSAGE.TURN_START, {});
 }
 function submitNextCard(correct) {
-	
+
 	socket.emit(MESSAGE.NEXT_CARD, {
 		correct: correct
 	});

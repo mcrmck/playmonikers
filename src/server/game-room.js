@@ -110,6 +110,7 @@ class GameRoom {
 		this.cardIdx = this.order[i];
 	}
 	turnEnd() {
+		console.log("turn ended")
 		let captIdx = this.users.findIndex(u => u.captain === true);
 		this.users[captIdx].captain = false;
 		if (captIdx === this.users.length - 1) {
@@ -118,6 +119,7 @@ class GameRoom {
 			this.users[captIdx + 1].captain = true;
 		}
 		this.turnInProgress = false;
+		this.turn++
 	}
 	invokeSetup() {
 		console.log(`Force setup: Room-${this.roomCode}`);
@@ -143,17 +145,17 @@ class GameRoom {
 	addCards(cards) {
 		this.selectedCards.push.apply(this.selectedCards, cards);
 	}
-	nextTurn() {
-		if(this.gameInProgress()) {
-			this.turn++;
-			console.log("new turn")
-			if(this.turn - 1 >= this.users.length * 2) {
-				this.phase = GAME_PHASE.VOTE;
-			}
-			return this.turn;
-		}
-		return undefined;
-	}
+	// nextTurn() {
+	// 	if(this.gameInProgress()) {
+	// 		this.turn++;
+	// 		console.log("new turn")
+	// 		if(this.turn - 1 >= this.users.length * 2) {
+	// 			this.phase = GAME_PHASE.VOTE;
+	// 		}
+	// 		return this.turn;
+	// 	}
+	// 	return undefined;
+	// }
 	gameInProgress() {
 		return this.phase === GAME_PHASE.PLAY || this.phase === GAME_PHASE.VOTE;
 	}

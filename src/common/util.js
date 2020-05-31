@@ -2,6 +2,34 @@
 function randomInt(max) { // max-exclusive
 	return Math.floor(Math.random() * max);
 }
+
+function AdjustingInterval(workFunc, interval, errorFunc) {
+    var that = this;
+    var expected, timeout;
+    this.interval = interval;
+
+    this.start = function() {
+        expected = Date.now() + this.interval;
+        timeout = setTimeout(step, this.interval);
+    }
+
+    this.stop = function() {
+				console.log("ticker stopped")
+        clearTimeout(timeout);
+    }
+
+    function step() {
+        var drift = Date.now() - expected;
+        if (drift > that.interval) {
+            // You could have some default stuff here too...
+            if (errorFunc) errorFunc();
+        }
+        workFunc();
+        expected += that.interval;
+        timeout = setTimeout(step, Math.max(0, that.interval-drift));
+    }
+}
+
 function randomItemFrom(arr) {
 	let idx = randomInt(arr.length);
 	return arr[idx];
@@ -22,6 +50,8 @@ function randomArray(length) {
 		arr = arr.sort(() => Math.random() - 0.5);
 		return arr
 }
+
+
 
 // Sorts users in alternating team order: https://stackoverflow.com/a/55077593
 function sortByTeam(users) {
@@ -49,6 +79,7 @@ function negligible(a, b, thresh = 0.0001) {
 
 module.exports = {
 	randomInt,
+	AdjustingInterval,
 	randomItemFrom,
 	shuffle,
 	sortByTeam,
