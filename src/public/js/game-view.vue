@@ -46,9 +46,6 @@
 			<div class="stripe stripe-content">
 				<button v-if="this.gameState.round > 3" type="submit" id="return-home-btn" class="btn primary" @click="nextCard(true);">Return Home</button>
 			</div>
-			<div class="stripe stripe-content" id="next-btns-invis">
-				<button v-if="this.gameState.round > 3" type="submit" id="return-home-btn" class="btn primary">Correct!</button>
-			</div>
 		</div>
 		<div class="stripe flex-center" id="game-screen" v-if="allUsersSubmitted">
 			<div class="stripe-content" id="red-team">
