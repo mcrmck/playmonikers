@@ -73,7 +73,9 @@ class GameRoom {
 		this.cardIdx = this.order[i];
 		this.faker = Util.randomItemFrom(this.users);
 		this.strokes = [];
-		this.users[0].captain = true;
+		if (this.round === 1) {
+			this.users[0].captain = true;
+		}
 		console.log(`New round: Room-${this.roomCode} start round ${this.round}`);
 	}
 	turnStart() {

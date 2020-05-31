@@ -211,12 +211,12 @@ export default {
 					console.log(this.thisUser.captain)
 					console.log(this.gameState.turn)
 
-				if(this.countdown <= 0){
+				if(this.countdown <= 0 || this.gameState.round != round){
 					clearInterval(downloadTimer);
-					if (this.thisUser.captain) {
+					if (this.thisUser.captain && this.gameState.turnInProgress) {
 							console.log("submit turn end")
-							this.countdown = 10
 							Store.submitTurnEnd();
+							this.countdown = 10
 						}
 						// On exit interval, restart to false
 			      this.isCountdownActive = false
