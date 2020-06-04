@@ -37,16 +37,16 @@
 				</div>
 			</div>
 		</div>
-		<div id="end-game" v-if="this.gameState.round > 3">
+		<!-- <div id="end-game" v-if="this.gameState.round > 3">
 			<div class="stripe flex-center">
 				<div class="stripe-content align-center">
 					<p>Thank you for playing!</p>
 				</div>
 			</div>
 			<div class="stripe stripe-content">
-				<button v-if="this.gameState.round > 3" type="submit" id="return-home-btn" class="btn primary" @click="nextCard(true);">Return Home</button>
+				<button type="button" id="join-game-back-btn" class="btn tertiary" @click="goto('main')">Back</button>
 			</div>
-		</div>
+		</div> -->
 		<div class="stripe flex-center" id="game-screen" v-if="allUsersSubmitted">
 			<div class="stripe-content" id="red-team">
 				<p>RED TEAM</p>
@@ -201,7 +201,7 @@ export default {
 				 if(this.isCountdownActive == true) return;
 				 // first time set true
 				 this.isCountdownActive = true
-				 this.countdown = 10;
+				 this.countdown = 60;
 				 var round = this.gameState.round
 				var downloadTimer = setInterval(() => {
 					console.log(this.countdown)
@@ -221,8 +221,8 @@ export default {
 				this.countdown -= 1
 			}, 1000);
 		},
-		returnHome(correct) {
-			Store.submitReturnToSetup();
+		returnHome() {
+			Store.submitLeaveGame();
 		},
 		nextCard(correct) {
 			if (this.gameState.selectedCards.filter(c => c.collected === false).length === 1) {
