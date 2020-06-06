@@ -4,16 +4,25 @@
 			<div class="stripe flex-center">
 				<div id="rules-content" class="stripe-content normal-text">
 					<div class="align-justify">
-						<p>Monikers has <strong>3 rounds</strong>. A red team and a blue team have <strong>60 seconds</strong> to describe as many people, characters or things from the deck of cards.</p> 
-						<p>Each of the three rounds has a restriction on how clues can be given:</p>
-						<p>ROUND 1: <strong>Use any words, sounds or gestures</strong>. You can't use the name on the card during your description, but you can use the clues written beneath the name.</p>
-						<p>ROUND 2: <strong>Use only 1 word as a clue</strong>. You aren't allowed to use sounds, gestures or the name itself.</p>
-						<p>ROUND 3: <strong>Use only charades</strong>. No words are allowed. Sound effects are allowed (within reason).</p>
-						<p>There's no limit to the number of guesses, and <strong>cards can be skipped</strong> if a team can't guess who they are.</p>
-						<p><strong>The teams keep the cards they guessed correctly</strong> to score after the round. Skipped cards are reshuffled into the deck.</p>
-						<p><strong>The teams take it in turn giving clues</strong>, and each player in each team should take it in turn to give clues too.</p>
-						<p><strong>Each of the 3 rounds ends when all the cards from the deck have been guessed correctly</strong>. After that, the teams add the point values from the cards they correctly guessed and <strong>shuffle the cards back together into one deck</strong> for the next round. The team with the lowest score starts the next round.</p>
-						<p><strong>The team with the highest total score after 3 rounds wins</strong> (but it's not necessary to keep score at all).</p>
+						<h2 id="rules-heading">Getting Started</h2>
+						<p>Monikers only takes about <strong>5-10 minutes to learn</strong>.</p>
+						<p>Start by dividing your group into <strong>2 teams</strong> and joining a <strong>video chat</strong>. It is may be best to use two separate devices if possible.</p>
+						<p>Everyone secretly chooses 5 cards they like from the 10 provided to them. All the cards people chose will be shuffled into one deck, which will be used by both teams for the entire game.</p>
+						<h2 id="rules-heading">HOW TO PLAY</h2>
+						<p>A person from the starting team has <strong>60 seconds</strong> to get their team to guess as many names as possible from the deck by giving clues about the person's identity. There's no limit to the number of guesses.</p>
+						<p><strong>Skipping is allowed</strong> and highly encouraged in all rounds. </p>
+						<p>Teams get points for the cards they guessed correctly. The skipped cards are reshuffled into the deck after each turn. <strong>Teams take turns giving clues</strong>. Each player will take a turn giving clues before any teammates repeat. </p>
+						<h2 id="rules-heading">RULES FOR EACH ROUND</h2>
+						<p>Monikers has <strong>3 rounds</strong>. Each has a restriction on how players are allowed to give clues: </p>
+						<h3>ROUND 1</h3>
+						<p>You can use <strong>any words, sounds, or gestures except the name itself</strong>, including the clue text on the card. If you say any part of the name, you have to skip that card this turn.</p>
+						<h3>ROUND 2</h3>
+						<p>Use <strong>only one word</strong>, which can be anything except the name itself. You can repeat that word as many times as you like, but no sounds or gestures.</p>
+						<h3>ROUND 3</h3>
+						<p><strong>Just charades</strong>. No words. Sound effects are OK.</p>
+						<h2 id="rules-heading">ENDING THE GAME</h2>
+						<p>The team with the highest total score after 3 rounds wins. <strong>But feel free not to keep score</strong> at all. It's fun to play competitively, but not necessary with the right group.</p>
+						<p>That's it, really. If you have any unanswered questions, just go with whatever works best for your group. Having fun is more important than getting it perfect.</p>
 					</div>
 				</div>
 			</div>
@@ -52,11 +61,11 @@
 
 	const n = 3;
 	let cardsSample = _.sampleSize(cardsJson, n);
-	
+
 	export default {
 		name: 'RulesView',
 		created: {
-			
+
 		},
 		data() {
 			return {
