@@ -3,8 +3,8 @@
 		<div class="view-container">
 			<div class="stripe flex-center">
 				<div id="rules-content" class="stripe-content normal-text">
-					<div class="align-justify">\
-						<h1>RULES</h1>
+					<div class="align-justify">
+						<h1 id="rules-heading">RULES</h1>
 						<h2 id="rules-heading">GETTING STARTED</h2>
 						<p>Monikers only takes about <strong>5-10 minutes to learn</strong>.</p>
 						<p>Start by dividing your group into <strong>2 teams</strong> and joining a <strong>video chat</strong>. It is may be best to use two separate devices if possible.</p>
