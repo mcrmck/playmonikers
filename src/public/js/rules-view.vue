@@ -3,8 +3,9 @@
 		<div class="view-container">
 			<div class="stripe flex-center">
 				<div id="rules-content" class="stripe-content normal-text">
-					<div class="align-justify">
-						<h2 id="rules-heading">Getting Started</h2>
+					<div class="align-justify">\
+						<h1>RULES</h1>
+						<h2 id="rules-heading">GETTING STARTED</h2>
 						<p>Monikers only takes about <strong>5-10 minutes to learn</strong>.</p>
 						<p>Start by dividing your group into <strong>2 teams</strong> and joining a <strong>video chat</strong>. It is may be best to use two separate devices if possible.</p>
 						<p>Everyone secretly chooses 5 cards they like from the 10 provided to them. All the cards people chose will be shuffled into one deck, which will be used by both teams for the entire game.</p>
@@ -41,7 +42,7 @@
 			</div>
 			<div class="stripe flex-center">
 				<div class="align-justify">
-					<p>If you want to know more, you can <a href="https://buffalogames.com/product_images/uploaded_images/instructions/174-Monikers-Instructions_081816.pdf">read the full rules</a> or <a href="https://www.youtube.com/watch?v=bRvEzutZ-ok">watch Polygon play through the game.</a></p>
+					<p>If you want to know more, you can <a href="https://buffalogames.com/product_images/uploaded_images/instructions/174-Monikers-Instructions_081816.pdf" target="_blank">read the full rules</a> or <a href="https://www.youtube.com/watch?v=bRvEzutZ-ok" target="_blank">watch Polygon play through the game.</a></p>
 				</div>
 			</div>
 			<div class="stripe flex-center">
