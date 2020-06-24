@@ -4,25 +4,16 @@
 
 ### An adaptation of the card game Monikers, written in Socket.IO and Vue.js
 
-### To build:
+### Check it out online at:
+
+[I'm an inline-style link](https://www.playmonikers.com)
+
+
+### To run locally:
 
 ```
 npm install
 npm run build
-```
-
-### To run:
-
-```
 npm run start
 ```
-
-Go to `localhost:3000`
-
-### Todo:
-
-* Fix correct cards not being removed from array
-* Add/remove more things from page depending on round and turn progress
-* Use score tracker
-* Add invisible elements to stop page shifting
-* Fix cards remaining
+Go to `localhost:3000`c
