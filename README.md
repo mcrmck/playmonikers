@@ -6,7 +6,7 @@
 
 ### Check it out online at:
 
-[I'm an inline-style link](https://www.playmonikers.com)
+[playmonikers.com](https://www.playmonikers.com)
 
 
 ### To run locally:
