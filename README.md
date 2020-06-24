@@ -2,7 +2,7 @@
   <img src="https://i.imgur.com/Qx6lfR9.png">
 </p>
 
-### An adaptation of the card game Monikers, written in Socket.IO and Vue.js
+### An unofficial, remote-play, adaptation of the card game Monikers, written in Socket.IO and Vue.js
 
 ### Check it out online at:
 
@@ -16,4 +16,4 @@ npm install
 npm run build
 npm run start
 ```
-Go to `localhost:3000`c
+Go to `localhost:3000`
