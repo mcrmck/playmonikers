@@ -105,6 +105,9 @@ handleSocket(MESSAGE.CREATE_ROOM,
 );
 handleSocket(MESSAGE.JOIN_ROOM,
 	function(data) {
+		if(data.username) {
+			Store.setUsername(data.username);
+		}
 		if(data.username !== Store.state.username) {
 			return;
 		}

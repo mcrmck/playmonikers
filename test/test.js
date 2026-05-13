@@ -11,6 +11,40 @@ const User = require('../src/common/user');
 describe('Test Suite', function() {
 	let sock1, sock2, sock3;
 
+	function startTwoPlayerGame(done) {
+		sock1.emit(MESSAGE.CREATE_ROOM, {
+			username: 'bob',
+		});
+		sock1.once(MESSAGE.CREATE_ROOM, function(data) {
+			let roomCode = data.roomState.roomCode;
+			sock2.emit(MESSAGE.JOIN_ROOM, {
+				username: 'larry',
+				roomCode,
+			});
+			sock2.once(MESSAGE.JOIN_ROOM, function(data) {
+				assert.notExists(data.err);
+				sock1.emit(MESSAGE.JOIN_TEAM, {
+					team: 'red',
+				});
+				sock1.once(MESSAGE.JOIN_TEAM, function(data) {
+					assert.notExists(data.err);
+					sock2.emit(MESSAGE.JOIN_TEAM, {
+						team: 'blue',
+					});
+					sock2.once(MESSAGE.JOIN_TEAM, function(data) {
+						assert.notExists(data.err);
+						sock1.emit(MESSAGE.START_GAME);
+						sock1.once(MESSAGE.START_GAME, function(data) {
+							assert.notExists(data.err);
+							assert.equal(data.roomState.phase, GAME_PHASE.PLAY);
+							done(roomCode);
+						});
+					});
+				});
+			});
+		});
+	}
+
 	beforeEach(function(done) {
 		require('../src/server/main')
 			.then(function() {
@@ -163,6 +197,38 @@ describe('Test Suite', function() {
 					roomCode,
 				});
 				sock2.once(MESSAGE.JOIN_ROOM, function(data) {
+					assert.exists(data.err);
+					done();
+				});
+			});
+		});
+		it('allows disconnected players to rejoin games in progress from the join form', function(done) {
+			startTwoPlayerGame(function(roomCode) {
+				sock2.disconnect();
+				setTimeout(function() {
+					sock3.emit(MESSAGE.JOIN_ROOM, {
+						username: 'larry',
+						roomCode,
+					});
+					sock3.once(MESSAGE.JOIN_ROOM, function(data) {
+						assert.notExists(data.err);
+						assert.isTrue(data.rejoin);
+						assert.equal(data.username, 'larry');
+						let rejoinedUser = data.roomState.users.find(user => user.name === 'larry');
+						assert.isTrue(rejoinedUser.connected);
+						assert.equal(data.roomState.phase, GAME_PHASE.PLAY);
+						done();
+					});
+				}, 25);
+			});
+		});
+		it('rejects attempts to take over a connected player in a game in progress', function(done) {
+			startTwoPlayerGame(function(roomCode) {
+				sock3.emit(MESSAGE.JOIN_ROOM, {
+					username: 'larry',
+					roomCode,
+				});
+				sock3.once(MESSAGE.JOIN_ROOM, function(data) {
 					assert.exists(data.err);
 					done();
 				});

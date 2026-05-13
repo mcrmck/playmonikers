@@ -59,12 +59,16 @@ const MessageHandlers = {
 		GamePrecond.roomExists(data.roomCode);
 
 		let user;
+		let rejoin = Boolean(data.rejoin);
+		let existingUser = roomToJoin.findUser(data.username.trim());
 
-		if(data.rejoin) {
+		if(shouldRejoinRoom(roomToJoin, existingUser, rejoin)) {
 			GamePrecond.nameIsTakenInRoom(data.username, roomToJoin);
 			GamePrecond.gameInProgress(roomToJoin);
+			GamePrecond.userIsDisconnected(existingUser);
 			user = login(sock, data.username, roomToJoin);
 			joinRoom(user, roomToJoin, true, false);
+			rejoin = true;
 		} else {
 			GamePrecond.roomIsNotFull(roomToJoin);
 			GamePrecond.gameNotInProgress(roomToJoin);
@@ -72,7 +76,10 @@ const MessageHandlers = {
 			user = login(sock, data.username);
 			joinRoom(user, roomToJoin, false, false);
 		}
-		broadcastRoomState(io, roomToJoin, MESSAGE.JOIN_ROOM);
+		broadcastRoomState(io, roomToJoin, MESSAGE.JOIN_ROOM, undefined, {
+			username: user.name,
+			rejoin,
+		});
 	},
 
 	[MESSAGE.LEAVE_ROOM](io, sock, data) {
@@ -190,6 +197,10 @@ const MessageHandlers = {
 		}
 	},
 };
+
+function shouldRejoinRoom(room, existingUser, requestedRejoin) {
+	return requestedRejoin || (room.gameInProgress() && existingUser !== undefined);
+}
 
 function login(sock, username, roomToRejoin) {
 	username = username.trim();
@@ -310,6 +321,11 @@ const GamePrecond = {
 			throw new GameError(`Username ${username} DNE in room ${room.roomCode}`, "This username doesn't exist in this room");
 		}
 	},
+	userIsDisconnected(user) {
+		if(user.connected) {
+			throw new GameError(`User ${user.name} is already connected`, 'This player is already connected');
+		}
+	},
 	allPlayersInTeam(room) {
 		if (room.hasUnassignedPlayers()) {
 			throw new GameError(`Room ${room.roomCode} has unassigned players`, 'Not all players have joined a team');
@@ -318,7 +334,7 @@ const GamePrecond = {
 };
 
 // send roomstate update to all users, accounting for different roles (i.e., faker vs artist)
-function broadcastRoomState(io, room, messageName, addtlProcessFn) {
+function broadcastRoomState(io, room, messageName, addtlProcessFn, responseFields = {}) {
 	let state = CliAdapter.generateStateJson(room);
 	if (addtlProcessFn) {
 		state = addtlProcessFn(state);
@@ -326,6 +342,7 @@ function broadcastRoomState(io, room, messageName, addtlProcessFn) {
 
 	if (room.phase === GAME_PHASE.SETUP) {
 		io.in(room.roomCode).emit(messageName, {
+			...responseFields,
 			roomState: state,
 		});
 		return;
@@ -337,6 +354,7 @@ function broadcastRoomState(io, room, messageName, addtlProcessFn) {
 		}
 
 		let res = {
+			...responseFields,
 			roomState: state
 		};
 		s.emit(messageName, res);
