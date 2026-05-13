@@ -239,9 +239,6 @@ export default {
 			this.countdownTimer();
 		});
 
-	},
-	updated() {
-		this.thisUser = this.gameState.users.find(user => user.name === Store.state.username);
 	}
 };
 </script>

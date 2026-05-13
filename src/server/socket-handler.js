@@ -18,6 +18,7 @@ function handleSockets(io) {
 		Object.keys(MessageHandlers).forEach((messageName) => {
 			sock.on(messageName, function(data) {
 				try {
+					data = data || {};
 					Schema.validateMessageFromClient(messageName, data);
 					MessageHandlers[messageName](io, sock, data);
 				} catch(e) {

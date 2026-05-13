@@ -15,7 +15,7 @@ export default {
         name: String,
         description: String,
         category: String,
-        points: Number,
+        points: [Number, String],
         collected: {
             type: Boolean,
             default: false

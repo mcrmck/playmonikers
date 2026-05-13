@@ -56,12 +56,12 @@
 
 <script>
 	const Store = require('./state');
-	const VIEW = require('./view');
 	import Card from './card';
 	import cardsJson from './cards.json';
+	import { sampleSize } from 'lodash';
 
 	const n = 3;
-	let cardsSample = _.sampleSize(cardsJson, n);
+	let cardsSample = sampleSize(cardsJson, n);
 
 	export default {
 		name: 'RulesView',

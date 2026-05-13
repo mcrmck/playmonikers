@@ -1,4 +1,6 @@
 const MESSAGE = require('../../common/message');
+const { io } = require('socket.io-client');
+const { reactive } = require('vue');
 const socket = io();
 const VIEW = require('./view');
 const ClientGame = require('../../common/cli-game');
@@ -7,7 +9,7 @@ const GAME_PHASE = require('../../common/game-phase');
 const CONNECTION_STATE = require('./connection-state');
 
 const Store = {
-	state: {
+	state: reactive({
 		username: '',
 		team: '',
 		view: VIEW.HOME,
@@ -17,7 +19,7 @@ const Store = {
 		joinWarning: undefined,
 		startWarning: undefined,
 		gameConnection: CONNECTION_STATE.DISCONNECT
-	},
+	}),
 	setUsername(username) {
 		this.state.username = username.trim();
 	},

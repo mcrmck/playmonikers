@@ -41,7 +41,7 @@ function generateClientGameState() {
 			return Object.assign(this, json);
 		},
 		getUserColor(username) {
-			let userIdx = _.findIndex(this.getUsernames(), (u) => (u === username)); // needs es6 polyfill
+			let userIdx = this.getUsernames().findIndex((u) => (u === username));
 			return userIdx >= 0 ? COLOR.HEX[COLOR.ORDER[userIdx]] || 'var(--grey6)' : 'var(--grey6)';
 		},
 		getMostRecentStroke() {

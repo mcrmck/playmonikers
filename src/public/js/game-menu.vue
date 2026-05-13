@@ -58,7 +58,7 @@ export default {
 	mounted() {
 		document.addEventListener('pointerdown', this.senseClickOutside);
 	},
-	beforeDestroy() {
+	beforeUnmount() {
 		document.removeEventListener('pointerdown', this.senseClickOutside);
 	}
 };

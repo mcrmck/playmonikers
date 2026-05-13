@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const parse = require('csv-parse');
+const { parse } = require('csv-parse');
 const Util = require('../common/util');
 
 const filename = path.resolve(__dirname, 'prompts.csv');

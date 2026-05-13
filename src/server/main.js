@@ -1,14 +1,14 @@
 const path = require('path');
 const http = require('http');
 const express = require('express');
-const SocketIO = require('socket.io');
+const { Server } = require('socket.io');
 const compress = require('compression');
 
 const app = express();
 const httpServer = http.createServer(app);
 const port = process.env.PORT || 3000;
 
-const io = SocketIO(httpServer);
+const io = new Server(httpServer);
 
 function startServer() {
 	return new Promise(function(resolve, reject) {

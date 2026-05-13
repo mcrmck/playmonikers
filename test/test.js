@@ -1,7 +1,7 @@
 // const assert = require('assert');
 const chai = require('chai');
 const assert = chai.assert;
-const io = require('socket.io-client');
+const { io } = require('socket.io-client');
 const MESSAGE = require('../src/common/message');
 const A = require('async');
 const GAME_PHASE = require('../src/common/game-phase');

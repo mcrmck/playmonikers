@@ -13,8 +13,8 @@
   "scripts": {
     "test": "mocha --exit",
     "deploy": "gh-pages -d build",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --env.production && pnpm run sass",
-    "watch": "webpack --env.development -w --debug --output-path-info --display-modules",
+    "build": "webpack --env production && pnpm run sass",
+    "watch": "webpack --env development -w",
     "sass": "sass src/public/style/style.scss:src/public/style/style.css --style compressed",
     "sass-dev": "sass --watch src/public/style/style.scss:src/public/style/style.css --style compressed",
     "start": "node ./src/server/main.js"
@@ -22,40 +22,24 @@
   "author": "ootachi",
   "license": "MIT",
   "dependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/polyfill": "^7.8.7",
-    "@babel/preset-env": "^7.9.0",
-    "ajv": "^6.12.0",
-    "app-module-path": "^2.2.0",
-    "babel-loader": "^8.1.0",
+    "@vue/compiler-sfc": "^3.5.34",
+    "ajv": "^8.20.0",
     "compression": "^1.7.4",
-    "core-js": "^3.6.4",
-    "correcting-interval": "^2.0.0",
-    "css-loader": "^2.1.1",
-    "csv": "^5.3.2",
-    "dotenv": "^6.2.0",
-    "express": "^4.17.1",
+    "csv-parse": "^6.2.1",
+    "express": "^5.2.1",
     "lodash": "^4.18.1",
-    "socket.io": "^2.3.0",
-    "source-map-loader": "^0.2.3",
-    "vue-loader": "^15.9.1",
-    "vue-template-compiler": "^2.6.11",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3",
+    "vue": "^3.5.34",
+    "vue-loader": "^17.4.2",
+    "webpack": "^5.106.2",
+    "webpack-cli": "^6.0.1"
   },
   "devDependencies": {
-    "@types/async": "^2.4.1",
-    "@types/dotenv": "^4.0.3",
-    "@types/express": "^4.17.3",
-    "@types/lodash": "^4.14.149",
-    "@types/node": "^10.17.18",
-    "@types/socket.io": "^1.4.40",
-    "@types/socket.io-client": "^1.4.32",
-    "async": "^2.6.3",
+    "async": "^3.2.6",
     "chai": "^4.2.0",
     "mocha": "^11.7.5",
-    "sass": "^1.94.2",
-    "vue": "^2.6.11"
+    "sass": "^1.94.2"
   },
   "bugs": {
     "url": "https://github.com/james-whitehead/monikers-js/issues"
@@ -63,5 +47,11 @@
   "homepage": "https://github.com/james-whitehead/monikers-js#readme",
   "directories": {
     "test": "test"
+  },
+  "pnpm": {
+    "overrides": {
+      "diff": "^8.0.3",
+      "serialize-javascript": "^7.0.5"
+    }
   }
 }

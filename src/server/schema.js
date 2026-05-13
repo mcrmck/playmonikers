@@ -9,6 +9,7 @@ const SCHEMA = {};
 
 SCHEMA[MESSAGE.CREATE_ROOM] = {
 	$id: MESSAGE.CREATE_ROOM,
+	type: 'object',
 	properties: {
 		username: {
 			type: 'string',
@@ -20,6 +21,7 @@ SCHEMA[MESSAGE.CREATE_ROOM] = {
 };
 SCHEMA[MESSAGE.JOIN_ROOM] = {
 	$id: MESSAGE.JOIN_ROOM,
+	type: 'object',
 	properties: {
 		username: {
 			type: 'string',
@@ -27,8 +29,15 @@ SCHEMA[MESSAGE.JOIN_ROOM] = {
 			maxLength: usernameMaxLength,
 		},
 		roomCode: {
-			type: ['string', 'number'],
-			minLength: 1,
+			anyOf: [
+				{
+					type: 'string',
+					minLength: 1,
+				},
+				{
+					type: 'number',
+				}
+			],
 		},
 		rejoin: {
 			type: 'boolean'
@@ -38,12 +47,14 @@ SCHEMA[MESSAGE.JOIN_ROOM] = {
 };
 SCHEMA[MESSAGE.LEAVE_ROOM] = {
 	$id: MESSAGE.LEAVE_ROOM,
+	type: 'object',
 	properties: {
 	},
 	required: [],
 };
 SCHEMA[MESSAGE.JOIN_TEAM] = {
 	$id: MESSAGE.JOIN_TEAM,
+	type: 'object',
 	properties: {
 		team: {
 			type: 'string',
@@ -54,12 +65,14 @@ SCHEMA[MESSAGE.JOIN_TEAM] = {
 };
 SCHEMA[MESSAGE.START_GAME] = {
 	$id: MESSAGE.START_GAME,
+	type: 'object',
 	properties: {
 	},
 	required: [],
 };
 SCHEMA[MESSAGE.SUBMIT_STROKE] = {
 	$id: MESSAGE.SUBMIT_STROKE,
+	type: 'object',
 	properties: {
 		points: {
 			type: 'array',
@@ -82,6 +95,7 @@ SCHEMA[MESSAGE.SUBMIT_STROKE] = {
 };
 SCHEMA[MESSAGE.SUBMIT_CARDS] = {
 	$id: MESSAGE.SUBMIT_CARDS,
+	type: 'object',
 	properties: {
 		cards: {
 			type: 'array',
@@ -110,12 +124,14 @@ SCHEMA[MESSAGE.SUBMIT_CARDS] = {
 };
 SCHEMA[MESSAGE.TURN_START] = {
 	$id: MESSAGE.TURN_START,
+	type: 'object',
 	properties: {
 	},
 	required: [],
 };
 SCHEMA[MESSAGE.NEXT_CARD] = {
 	$id: MESSAGE.NEXT_CARD,
+	type: 'object',
 	properties: {
 		correct: {
 			type: 'boolean'
@@ -125,6 +141,7 @@ SCHEMA[MESSAGE.NEXT_CARD] = {
 };
 SCHEMA[MESSAGE.TURN_END] = {
 	$id: MESSAGE.TURN_END,
+	type: 'object',
 	properties: {
 	},
 	required: [],

@@ -7,6 +7,7 @@ package-lock.json
 *.log
 *.bundle.json
 src/public/js/index.js
+src/public/js/index.js.LICENSE.txt
 *.min.js
 *.gz
 *.js.map

@@ -1,11 +1,7 @@
-const ClientGame = require('../../common/cli-game');
-const GAME_PHASE = require('../../common/game-phase');
-const MESSAGE = require('../../common/message');
-const Util = require('../../common/util');
-const VIEW = require('./view');
-const Store = require('./state');
+import { createApp } from 'vue';
+import App from './app.vue';
 
-import Vue from 'vue';
+createApp(App).mount('#app');
 
 import HomeMenu from './home-menu.vue';
 import SetupView from './setup-view.vue';
