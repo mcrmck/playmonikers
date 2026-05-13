@@ -5,11 +5,7 @@ const _ = require('lodash');
 const GameError = require('./game-error');
 const cardsJson = require('../public/js/cards.json');
 
-
-
-
 const MAX_USERS = 10;
-var i = 0
 class GameRoom {
 	constructor(roomCode, host) {
 		this.roomCode = roomCode;
@@ -26,6 +22,7 @@ class GameRoom {
 		this.cards = [];
 		this.selectedCards = [];
 		this.cardIdx = 0;
+		this.cardOrderIdx = 0;
 		this.redCards = [];
 		this.blueCards = [];
 		this.strokes = [];
@@ -70,7 +67,8 @@ class GameRoom {
 		this.turn = 1;
 		this.order = Array.from(Array(this.users.length * 5).keys());
 		this.order = this.order.sort(() => Math.random() - 0.5);
-		this.cardIdx = this.order[i];
+		this.cardOrderIdx = 0;
+		this.cardIdx = this.order[this.cardOrderIdx];
 		this.faker = Util.randomItemFrom(this.users);
 		this.strokes = [];
 		if (this.round === 1) {
@@ -92,7 +90,7 @@ class GameRoom {
 		let playingTeam = this.users.find(u => u.captain === true).team;
 		if (correct) {
 			this.selectedCards[this.cardIdx].collected = true;
-			this.order.splice(i, 1)
+			this.order.splice(this.cardOrderIdx, 1)
 			if (playingTeam === 'red') {
 				this.redCards.push(this.selectedCards[this.cardIdx]);
 			} else if (playingTeam === 'blue') {
@@ -104,12 +102,12 @@ class GameRoom {
 				return this.cardIdx;
 			}
 		} else {
-			i++;
+			this.cardOrderIdx++;
 		}
-			if (i > this.order.length - 1) {
-				i = 0;
+			if (this.cardOrderIdx > this.order.length - 1) {
+				this.cardOrderIdx = 0;
 			}
-		this.cardIdx = this.order[i];
+		this.cardIdx = this.order[this.cardOrderIdx];
 	}
 	turnEnd() {
 		console.log("turn ended")

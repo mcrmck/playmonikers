@@ -1,6 +1,4 @@
 const path = require('path');
-const CompressionPlugin = require('compression-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const _ = require('lodash');
 // require('@babel/polyfill'); corejs polyfill
@@ -58,7 +56,6 @@ module.exports = (env) => {
 			extensions: [".js", ".json", ".vue"],
 		},
 		plugins: [
-			new CompressionPlugin(),
 			new VueLoaderPlugin(),
 		],
 	};

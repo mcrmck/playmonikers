@@ -2,7 +2,7 @@
   "name": "monikers",
   "version": "1.0.0",
   "engines": {
-    "node": "^10.14.0"
+    "node": ">=18"
   },
   "description": "A browser based adaptation of the card game Monikers. Uses socket.io and vue.js",
   "repository": {
@@ -13,9 +13,9 @@
   "scripts": {
     "test": "mocha --exit",
     "deploy": "gh-pages -d build",
-    "build": "webpack --env.production && npm run sass",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --env.production && pnpm run sass",
     "watch": "webpack --env.development -w --debug --output-path-info --display-modules",
-    "sass": "node-sass src/public/style/style.scss src/public/style/style.css --output-style compressed",
+    "sass": "sass src/public/style/style.scss:src/public/style/style.css --style compressed",
     "sass-dev": "sass --watch src/public/style/style.scss:src/public/style/style.css --style compressed",
     "start": "node ./src/server/main.js"
   },
@@ -29,19 +29,15 @@
     "app-module-path": "^2.2.0",
     "babel-loader": "^8.1.0",
     "compression": "^1.7.4",
-    "compression-webpack-plugin": "^4.0.0",
     "core-js": "^3.6.4",
     "correcting-interval": "^2.0.0",
     "css-loader": "^2.1.1",
     "csv": "^5.3.2",
     "dotenv": "^6.2.0",
     "express": "^4.17.1",
-    "lodash": ">=4.17.13",
-    "node-sass": ">7.0.0",
-    "package.json": "^2.0.1",
+    "lodash": "^4.18.1",
     "socket.io": "^2.3.0",
     "source-map-loader": "^0.2.3",
-    "uglifyjs-webpack-plugin": "^2.2.0",
     "vue-loader": "^15.9.1",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.42.1",
@@ -56,11 +52,9 @@
     "@types/socket.io": "^1.4.40",
     "@types/socket.io-client": "^1.4.32",
     "async": "^2.6.3",
-    "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.2.2",
-    "mocha": "^7.2.0",
+    "mocha": "^11.7.5",
+    "sass": "^1.94.2",
     "vue": "^2.6.11"
   },
   "bugs": {

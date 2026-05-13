@@ -90,6 +90,8 @@ const MessageHandlers = {
 	},
 
 	[MESSAGE.JOIN_TEAM](io, sock, data) {
+		GamePrecond.sockHasUser(sock);
+		GamePrecond.userIsInARoom(sock.user);
 		let team = data.team;
 		let user = sock.user;
 		let room = user.gameRoom;
@@ -146,6 +148,8 @@ const MessageHandlers = {
 	},
 
 	[MESSAGE.TURN_START](io, sock, data) {
+		GamePrecond.sockHasUser(sock);
+		GamePrecond.userIsInARoom(sock.user);
 		GamePrecond.gameInProgress(sock.user.gameRoom);
 		let rm = sock.user.gameRoom;
 		rm.turnStart();
@@ -153,6 +157,8 @@ const MessageHandlers = {
 	},
 
 	[MESSAGE.NEXT_CARD](io, sock, data) {
+		GamePrecond.sockHasUser(sock);
+		GamePrecond.userIsInARoom(sock.user);
 		GamePrecond.gameInProgress(sock.user.gameRoom);
 		let rm = sock.user.gameRoom;
 		rm.nextCard(data.correct);
@@ -160,6 +166,8 @@ const MessageHandlers = {
 	},
 
 	[MESSAGE.TURN_END](io, sock, data) {
+		GamePrecond.sockHasUser(sock);
+		GamePrecond.userIsInARoom(sock.user);
 		GamePrecond.gameInProgress(sock.user.gameRoom);
 		let rm = sock.user.gameRoom;
 		rm.turnEnd();

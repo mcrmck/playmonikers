@@ -46,10 +46,11 @@ SCHEMA[MESSAGE.JOIN_TEAM] = {
 	$id: MESSAGE.JOIN_TEAM,
 	properties: {
 		team: {
-			type: 'string'
+			type: 'string',
+			enum: ['red', 'blue']
 		}
 	},
-	required: [],
+	required: ['team'],
 };
 SCHEMA[MESSAGE.START_GAME] = {
 	$id: MESSAGE.START_GAME,

@@ -20,7 +20,7 @@ class User {
 		this.team = team;
 	}
 	setCaptain(captain) {
-		this.captan = captain;
+		this.captain = captain;
 	}
 	setCardsChosen(cardsChosen) {
 		this.cardsChosen = cardsChosen;
